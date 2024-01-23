@@ -13,10 +13,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
 	cors({
-	  origin: '*',
-	  credentials: true,
+		origin:"https://emitter-front-end.vercel.app/",
+		credentials:true,
 	})
-  );
+)
 // Importing the routes
 const authRoutes = require("./routes/auth");
 const quizRoutes = require("./routes/quiz")
