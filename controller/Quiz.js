@@ -116,7 +116,7 @@ exports.getQuIzDetails = async (req, res) => {
 exports.createQuiz = async (req, res) => {
   try {
     // Extract quiz details and question data from the request body
-    const { title, description, language, questions } = req.body;
+    const { title, description, language, questions , proficiencyLevel } = req.body;
 
     // Create questions in the database
     const createdQuestions = await Question.create(questions);
@@ -128,6 +128,7 @@ exports.createQuiz = async (req, res) => {
       description,
       language,
       questions: questionIds,
+      proficiencyLevel:proficiencyLevel
     });
 
     return res.status(201).json({ success: true, message: 'Quiz and questions created successfully.' });
