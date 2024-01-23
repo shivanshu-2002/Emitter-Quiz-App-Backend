@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
 	cors({
-		origin:"https://emitter-front-end.vercel.app/",
+		origin:"https://emitter-front-end.vercel.app",
 		credentials:true,
 	})
 )
