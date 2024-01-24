@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
 	cors({
-	  origin: ['http://localhost:5173', 'https://emitter-front-end.vercel.app'],
+	  origin: ['http://localhost:5173', 'https://emitter-front-end.vercel.app','*','https://emitter-front-ie17izg4v-shivanshu-2002.vercel.app'],
 	  credentials: true,
 	})
   );
