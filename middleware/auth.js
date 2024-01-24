@@ -6,7 +6,11 @@ require("dotenv").config();
 exports.auth = async (req, res, next) => {
     try {
         //    Extract token 
-        const token = req.body.token || req.cookies.token ;
+        const token =
+			req.cookies.token ||
+			req.body.token ||
+			req.header("Authorization").replace("Bearer ", "");
+
         // if token is missing return response.
         if (!token) {
             console.log("token nhi hai bhai")

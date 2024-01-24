@@ -154,7 +154,6 @@ exports.login = async (req, res) => {
     try {
         //    fetch the data 
         const { email, password } = req.body;
-        console.log("hello")
         // Validate the data 
         if (!email || !password) {
             return res.status(403).json({
@@ -165,7 +164,6 @@ exports.login = async (req, res) => {
         
         // check if user exist 
         const user = await User.findOne({ email: email });
-        console.log("hello")
         if (!user) {
             return res.status(401).json({
                 success: false,
@@ -176,7 +174,6 @@ exports.login = async (req, res) => {
 
         // if password matches
         if (await bcrypt.compare(password, user.password)) {
-            console.log("hello")
             // generate jwt token
             const payload = {
                 email: user.email,
@@ -184,7 +181,7 @@ exports.login = async (req, res) => {
                 accountType: user.accountType
             }
 
-            const token = jwt.sign(payload, process.env.JWT_SECRET,
+            const token =  jwt.sign(payload, process.env.JWT_SECRET,
                 {
                     expiresIn: "2h",
                 })
@@ -198,15 +195,12 @@ exports.login = async (req, res) => {
             };
 
             // save it in a cookie and send the response
-            console.log("ENd")
-           return res.cookie("token", token, options).status(200).json({
+            res.cookie("token", token, options).status(200).json({
                 success: true,
                 token,
                 user,
                 message: "Logged In Successfully",
             });
-
-
         }
         // You can write the else block here..if password is incorrect 
         else {
