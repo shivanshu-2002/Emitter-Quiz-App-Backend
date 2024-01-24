@@ -9,7 +9,7 @@ exports.auth = async (req, res, next) => {
         const token =
 			req.cookies.token ||
 			req.body.token ||
-			req.header("Authorization").replace("Bearer ", "");
+			req?.header("Authorization").replace("Bearer ", "");
 
         // if token is missing return response.
         if (!token) {
@@ -19,6 +19,7 @@ exports.auth = async (req, res, next) => {
                 message: "Token is Missing"
             })
         }
+        console.log("Bhai Pass hain")
         //    find out values from the token
         try {
             const decode =  jwt.verify(token, process.env.JWT_SECRET);
