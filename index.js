@@ -21,6 +21,7 @@ app.use(
 		credentials:true,
 	})
 )
+// origin:"https://emitter-front-end.vercel.app",
 // Importing the routes
 const authRoutes = require("./routes/auth");
 const quizRoutes = require("./routes/quiz")

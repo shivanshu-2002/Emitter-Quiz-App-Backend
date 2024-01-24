@@ -10,7 +10,7 @@ const { auth}  = require('../middleware/auth')
 
 router.post("/getQuizList", getQuizList)
 router.post("/createQuiz",auth, createQuiz)
-router.get("/getQuIzDetails/:id", getQuIzDetails)
+router.get("/getQuIzDetails/:id",auth, getQuIzDetails)
 router.post("/evaluateQuiz",auth, evaluateQuiz)
 
 

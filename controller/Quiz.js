@@ -35,8 +35,7 @@ exports.getQuizList = async (req, res) => {
       pipeline.push({
         $match: {
           proficiencyLevel: {
-            $gte: userProficiencyLevel - 2,
-            $lte: userProficiencyLevel + 2,
+            $eq: userProficiencyLevel,
           }
         }
       });
