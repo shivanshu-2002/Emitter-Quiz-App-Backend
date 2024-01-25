@@ -141,7 +141,7 @@ exports.evaluateQuiz = async (req, res) => {
   try {
     const { quizId, userResponses } = req.body;
     const userId = req.user.id; // Assuming user ID is available in req.user
-
+    console.log(userId)
     // Fetch quiz data
     const quiz = await Quiz.findById(new mongoose.Types.ObjectId(quizId)).populate('questions');
 
@@ -181,7 +181,7 @@ exports.evaluateQuiz = async (req, res) => {
     if (languageProgress) {
       // LanguageProgress exists, check if quiz has been completed before
       const existingExercise = languageProgress.exercises.find(exercise => exercise.exerciseId.equals(quiz._id));
-      console.log(existingExercise)
+
       if (existingExercise) {
         // Quiz already completed, replace existing totalPoints
         languageProgress.totalPoints = languageProgress.totalPoints - existingExercise.score + result.totalCorrectAnswers;

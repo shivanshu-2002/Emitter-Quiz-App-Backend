@@ -140,33 +140,37 @@ exports.prevQuizes = async (req, res) => {
       });
     }
   };
+
 exports.leaderboard = async (req, res) => {
   try {
     const topUsers = await LanguageProgress.aggregate([
       {
-        $sort: { totalPoints: -1 } // Sort in descending order based on totalPoints
+        $group: {
+          _id: "$user",
+          totalPoints: { $sum: "$totalPoints" }
+        }
       },
       {
         $lookup: {
-          from: 'users', // Assuming your user collection is named 'users'
-          localField: 'user',
-          foreignField: '_id',
-          as: 'userData'
+          from: "users", // Replace with the actual name of your users collection
+          localField: "_id",
+          foreignField: "_id",
+          as: "userDetails"
         }
-      },
-      {
-        $unwind: '$userData'
       },
       {
         $project: {
-          _id: 0,
-          language: 1,
+          _id: 1,
           totalPoints: 1,
-          proficiencyLevel: 1,
-          username: '$userData.username',
-          userImage:'$userData.image'
-           // Include the username in the result
+          userName: { $arrayElemAt: ['$userDetails.username', 0] },
+          userImage:{$arrayElemAt:['$userDetails.image', 0]}
         }
+      },
+      {
+        $sort: { totalPoints: -1 }
+      },
+      {
+        $limit: 3
       }
     ]);
 

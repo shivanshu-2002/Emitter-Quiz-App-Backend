@@ -180,6 +180,7 @@ exports.login = async (req, res) => {
                 id: user._id,
                 accountType: user.accountType
             }
+            console.log(payload)
 
             const token =  jwt.sign(payload, process.env.JWT_SECRET,
                 {
